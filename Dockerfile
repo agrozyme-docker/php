@@ -1,5 +1,4 @@
 FROM agrozyme/alpine:3.8
-
 COPY docker-command.sh /usr/local/bin/
 
 RUN set -x \
@@ -25,7 +24,7 @@ RUN set -x \
   -e 's!^;clear_env !clear_env !' \
   /etc/php7/php-fpm.d/www.conf
 
-ENV PHP_INI_SCAN_DIR /etc/php7/conf.d:/usr/local/etc/php7
+ENV PHP_INI_SCAN_DIR=/etc/php7/conf.d:/usr/local/etc/php7
 WORKDIR /var/www/html
 EXPOSE 9000
 CMD ["docker-command.sh"]
