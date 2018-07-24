@@ -14,6 +14,8 @@ RUN set -euxo pipefail \
   -e '$ a include=/usr/local/etc/php7/*.conf' \
   /etc/php7/php-fpm.conf \
   && sed -ri \
+  -e 's!^user = nobody!user = core!' \
+  -e 's!^group = nobody!group = core!' \
   -e 's!^listen = 127.0.0.1:9000!listen = 9000!' \
   -e 's!^;access.log = log/php7/\$pool.access.log!access.log = /var/log/php7/access.log!' \
   -e 's!^;catch_workers_output !catch_workers_output !' \
