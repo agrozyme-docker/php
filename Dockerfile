@@ -9,30 +9,31 @@ RUN set -euxo pipefail \
   && ln -sf /dev/stdout /var/log/php7/access.log \
   && ln -sf /dev/stderr /var/log/php7/error.log \
   && sed -ri \
-  -e 's!^;daemonize = yes!daemonize = no!' \
-  -e 's!^;error_log = log/php7/error.log!error_log = /var/log/php7/error.log!' \
+  -e 's!^[;[:space:]]*error_log[[:space:]]*=.*$!error_log = /var/log/php7/error.log!i' \
+  -e 's/^[;[:space:]]*log_level[[:space:]]*=.*$/log_level = warning/i' \
+  -e 's/^[;[:space:]]*daemonize[[:space:]]*=.*$/daemonize = no/i' \
   -e '$ a include=/usr/local/etc/php7/*.conf' \
   /etc/php7/php-fpm.conf \
   && sed -ri \
-  -e 's!^user = nobody!user = core!' \
-  -e 's!^group = nobody!group = core!' \
-  -e 's!^listen = 127.0.0.1:9000!listen = 9000!' \
-  -e 's!^;access.log = log/php7/\$pool.access.log!access.log = /var/log/php7/access.log!' \
-  -e 's!^;catch_workers_output !catch_workers_output !' \
-  -e 's!^;clear_env !clear_env !' \
+  -e 's!^[;[:space:]]*access.log[[:space:]]*=.*$!access.log = /var/log/php7/access.log!i' \
+  -e 's/^[;[:space:]]*user[[:space:]]*=.*$/user = core/i' \
+  -e 's/^[;[:space:]]*group[[:space:]]*=.*$/group = core/i' \
+  -e 's/^[;[:space:]]*listen[[:space:]]*=.*$/listen = 9000/i' \
+  -e 's/^[;[:space:]]*catch_workers_output[[:space:]]*=.*$/catch_workers_output = yes/i' \
+  -e 's/^[;[:space:]]*clear_env[[:space:]]*=.*$/clear_env = no/i' \
   /etc/php7/php-fpm.d/www.conf \
   && sed -ri \
-  -e 's!^precision = 14!precision = -1!' \
-  -e 's!^;date.timezone =!date.timezone = UTC!' \
-  -e 's!^mysqlnd.collect_statistics = On!mysqlnd.collect_statistics = Off!' \
-  -e 's!^session.use_strict_mode = 0!session.use_strict_mode = 1!' \
-  -e 's!^session.cookie_httponly =!session.cookie_httponly = On!' \
-  -e 's!^session.sid_length = 26!session.sid_length = 256!' \
-  -e 's!^session.sid_bits_per_character = 5!session.sid_bits_per_character = 4!' \
-  -e 's!^;opcache.enable_cli=0!opcache.enable_cli=1!' \
-  -e 's!^;opcache.max_accelerated_files=10000!opcache.max_accelerated_files=1000000!' \
-  -e 's!^;opcache.revalidate_freq=2!opcache.revalidate_freq=0!' \
-  -e 's!^;opcache.revalidate_path=0!opcache.revalidate_path=1!' \
+  -e 's/^[;[:space:]]*precision[[:space:]]*=.*$/precision = -1/i' \
+  -e 's/^[;[:space:]]*date.timezone[[:space:]]*=.*$/date.timezone = UTC/i' \
+  -e 's/^[;[:space:]]*mysqlnd.collect_statistics[[:space:]]*=.*$/mysqlnd.collect_statistics = Off/i' \
+  -e 's/^[;[:space:]]*session.use_strict_mode[[:space:]]*=.*$/session.use_strict_mode = 1/i' \
+  -e 's/^[;[:space:]]*session.cookie_httponly[[:space:]]*=.*$/session.cookie_httponly = On/i' \
+  -e 's/^[;[:space:]]*session.sid_length[[:space:]]*=.*$/session.sid_length = 256/i' \
+  -e 's/^[;[:space:]]*session.sid_bits_per_character[[:space:]]*=.*$/session.sid_bits_per_character = 4/i' \
+  -e 's/^[;[:space:]]*opcache.enable_cli[[:space:]]*=.*$/opcache.enable_cli = 1/i' \
+  -e 's/^[;[:space:]]*opcache.max_accelerated_files[[:space:]]*=.*$/opcache.max_accelerated_files = 1000000/i' \
+  -e 's/^[;[:space:]]*opcache.revalidate_freq[[:space:]]*=.*$/opcache.revalidate_freq = 0/i' \
+  -e 's/^[;[:space:]]*opcache.revalidate_path[[:space:]]*=.*$/opcache.revalidate_path = 1/i' \
   /etc/php7/php.ini
 
 ENV PHP_INI_SCAN_DIR=/etc/php7/conf.d:/usr/local/etc/php7
