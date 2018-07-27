@@ -1,5 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-docker-core.sh
+agrozyme.alpine.function.sh change_core
 rm -f /run/php-fpm7/php-fpm.pid
 exec php-fpm7 -F
