@@ -3,7 +3,8 @@ set -euo pipefail
 
 function main() {
   agrozyme.alpine.function.sh change_core
-  rm -f /run/php-fpm7/php-fpm.pid
+  agrozyme.alpine.function.sh empty_folder /run/php-fpm7
+  chown -R core:core /var/www/html
   exec php-fpm7 -F
 }
 
