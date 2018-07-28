@@ -4,7 +4,7 @@ COPY source /
 RUN set -euxo pipefail \
   && chmod +x /usr/local/bin/*.sh \
   && apk add --no-cache php7 php7-fpm php7-opcache \
-  && mkdir -p /run/php-fpm7 /usr/local/etc/php7 /var/www/html \
+  && mkdir -p /usr/local/etc/php7 /var/www/html \
   && chown -R core:core /var/www/html \
   && ln -sf /dev/stdout /var/log/php7/access.log \
   && ln -sf /dev/stderr /var/log/php7/error.log \
