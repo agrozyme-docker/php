@@ -28,7 +28,7 @@ RUN set -euxo pipefail \
   -e 's/^[;[:space:]]*(mysqlnd.collect_statistics)[[:space:]]*=.*$/\1 = Off/i' \
   -e 's/^[;[:space:]]*(session.use_strict_mode)[[:space:]]*=.*$/\1 = 1/i' \
   -e 's/^[;[:space:]]*(session.cookie_httponly)[[:space:]]*=.*$/\1 = On/i' \
-  -e 's/^[;[:space:]]*(session.sid_length)[[:space:]]*=.*$/\1 = 128/i' \
+  -e 's/^[;[:space:]]*(session.sid_length)[[:space:]]*=.*$/\1 = 64/i' \
   -e 's/^[;[:space:]]*(session.sid_bits_per_character)[[:space:]]*=.*$/\1 = 4/i' \
   -e 's/^[;[:space:]]*(opcache.enable_cli)[[:space:]]*=.*$/\1 = 1/i' \
   -e 's/^[;[:space:]]*(opcache.max_accelerated_files)[[:space:]]*=.*$/\1 = 1000000/i' \
