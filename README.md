@@ -16,4 +16,9 @@ While designed for web development, the PHP scripting language also provides gen
 - Custom PHP-FPM Configuration Files: /usr/local/etc/php7/*.conf
 - Custom .ini Configuration Files: /usr/local/etc/php7/*.ini
 
-Include package manager `Composer` with `self-update`
+# Composer
+- Include package manager `composer` with `self-update`
+- Work Directory: /var/www/html
+
+# Environment Variables
+- COMPOSER_HOME: /usr/local/lib/composer
