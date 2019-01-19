@@ -2,6 +2,7 @@
 While designed for web development, the PHP scripting language also provides general-purpose use.
 
 # Extensions
+- curl
 - icov
 - json
 - mbstring
@@ -20,5 +21,8 @@ While designed for web development, the PHP scripting language also provides gen
 - Include package manager `composer` with `self-update`
 - Work Directory: /var/www/html
 
-# Environment Variables
+## Plugins
+- prestissimo
+
+## Environment Variables
 - COMPOSER_HOME: /usr/local/lib/composer
