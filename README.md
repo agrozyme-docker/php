@@ -1,15 +1,6 @@
 # Summary
 While designed for web development, the PHP scripting language also provides general-purpose use.
 
-# Extensions
-- curl
-- icov
-- json
-- mbstring
-- opcache
-- openssl
-- phar
-
 # Settings
 - Mode: PHP-CLI / PHP-FPM
 - DocumentRoot Directory: /var/www/html
