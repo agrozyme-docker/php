@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-set -euo pipefail
+set +e -uo pipefail
 
 function main() {
   local network=${DOCKER_NETWORK:-ingress}
