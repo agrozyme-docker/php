@@ -3,7 +3,7 @@ local core = require("docker-core")
 
 local function main()
   core.run(
-    "apk add --no-cache composer patch git $(apk search --no-cache -xq php7* | grep -Ev '(-apache2|-cgi|-dev|-doc)$')"
+    "apk add --no-cache composer patch git $(apk search --no-cache -xq php7* | grep -Ev '(-apache2|-cgi|-dev|-doc|-pecl-ssh2|-pecl-imagick)$')"
   )
   core.run("composer self-update")
   core.run("mkdir -p /usr/local/etc/php7 /usr/local/lib/composer /var/www/html")
