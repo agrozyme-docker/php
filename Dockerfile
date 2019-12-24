@@ -1,4 +1,4 @@
-FROM agrozyme/alpine:3.10
+FROM agrozyme/alpine:3.11
 COPY rootfs /
 ENV \
   PHP_INI_SCAN_DIR=/etc/php7/conf.d:/etc/php7/docker:/usr/local/etc/php7 \
