@@ -1,14 +1,23 @@
 #!/usr/bin/lua
 local core = require("docker-core")
 
+local function composer_setup(bin)
+  local setup = "composer-setup.php"
+  core.run("wget -q -O %s https://getcomposer.org/installer", setup)
+  core.run("php %s", setup)
+  core.run("rm -f %s", setup)
+  core.run("chmod +x composer.phar")
+  core.run("mv composer.phar %s/composer", bin)
+end
+
 local function main()
   local bin = "/usr/bin"
+
   core.run(
-    -- "apk add --no-cache composer patch git $(apk search --no-cache -xq php7* | grep -Ev '(-apache2|-cgi|-dev|-doc|-pecl-ssh2|-pecl-gmagick)$')"
-    "apk add --no-cache composer patch git $(apk search --no-cache -xq php7* | grep -Ev '(-apache2|-cgi|-dev|-doc|-pecl-gmagick)$')"
+    "apk add --no-cache patch git $(apk search --no-cache -xq php7* | grep -Ev '(-apache2|-cgi|-dev|-doc|-pecl-gmagick)$')"
   )
 
-  core.run("composer self-update")
+  composer_setup(bin)
   core.run("mkdir -p /usr/local/etc/php7 /usr/local/lib/composer /var/www/html")
   core.link_log("/var/log/php7/access.log", "/var/log/php7/error.log")
   core.append_file(
