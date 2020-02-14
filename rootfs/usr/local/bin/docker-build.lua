@@ -28,6 +28,7 @@ local function main()
   core.run("%s/composer diagnose", bin)
   core.run("%s/composer global require hirak/prestissimo", bin)
   core.run("%s/composer clear-cache", bin)
+  core.run("%s/composer global info", bin)
 end
 
 main()
