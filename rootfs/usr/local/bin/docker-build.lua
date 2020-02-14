@@ -18,7 +18,7 @@ local function main()
   )
 
   composer_setup(bin)
-  core.run("mkdir -p /usr/local/etc/php7 /usr/local/lib/composer /var/www/html")
+  core.run("mkdir -p /usr/local/etc/php7 /var/www/html")
   core.link_log("/var/log/php7/access.log", "/var/log/php7/error.log")
   core.append_file(
     "/etc/php7/php-fpm.conf",
@@ -28,7 +28,7 @@ local function main()
   core.run("%s/composer diagnose", bin)
   core.run("%s/composer global require hirak/prestissimo", bin)
   core.run("%s/composer clear-cache", bin)
-  core.run("%s/composer global info", bin)
+  core.chown("/usr/local/lib/composer")
 end
 
 main()
