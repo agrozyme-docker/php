@@ -9,7 +9,6 @@ function cli_options() {
   declare -A items=(
     ['image']=agrozyme/php
     ['run']="docker run -it --rm -u=${user} --network=${network} -v ${PWD}:/var/www/html"
-    ['command']="php -c /etc/php7/php-cli.ini "
   )
 
   items=$(declare -p items)
@@ -20,7 +19,7 @@ function php() {
   local items=$(cli_options)
   eval "declare -A items=${items}"
 
-  local run="${items['run']} ${items['image']} ${items['command']}"
+  local run="${items['run']} ${items['image']} php"
 
   ${run} "$@"
 }
@@ -30,8 +29,8 @@ function composer() {
   eval "declare -A items=${items}"
 
   local home=${COMPOSER_HOME:-${HOME}/.composer}
-  local run="${items['run']} ${items['image']} ${items['command']}/composer"
-  # local run="${items['run']} -v ${home}:/usr/local/lib/composer ${items['image']} ${items['command']}/composer"
+  local run="${items['run']} ${items['image']} composer"
+  # local run="${items['run']} -v ${home}:/usr/local/lib/composer ${items['image']} composer"
 
   mkdir -p "${home}"
   ${run} "$@"
