@@ -9,7 +9,7 @@ function cli_options() {
   declare -A items=(
     ['image']=agrozyme/php
     ['run']="docker run -it --rm -u=${user} --network=${network} -v ${PWD}:/var/www/html"
-    ['command']="php -d memory_limit=-1 "
+    ['command']="php -c /etc/php7/php-cli.ini "
   )
 
   items=$(declare -p items)
