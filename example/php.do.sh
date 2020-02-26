@@ -1,39 +1,25 @@
 #!/usr/bin/bash
 set -euo pipefail
 
-function cli_options() {
-  local network=${DOCKER_NETWORK:-network}
-  local user=$(id -u):$(id -g)
-
-  local items
-  declare -A items=(
-    ['image']=agrozyme/php
-    ['run']="docker run -it --rm -u=${user} --network=${network} -v ${PWD}:/var/www/html"
-  )
-
-  items=$(declare -p items)
-  echo "${items#*=}"
+function cli_command() {
+  local image="docker.io/agrozyme/php"
+  local path="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
+  local command="${path}/docker.do.sh run_command -v ${PWD}:/var/www/html $@ ${image} "
+  echo "${command}"
 }
 
 function php() {
-  local items=$(cli_options)
-  eval "declare -A items=${items}"
-
-  local run="${items['run']} ${items['image']} php"
-
-  ${run} "$@"
+  local run="$(cli_command) php $@"
+  ${run}
 }
 
 function composer() {
-  local items=$(cli_options)
-  eval "declare -A items=${items}"
-
-  local home=${COMPOSER_HOME:-${HOME}/.composer}
-  local run="${items['run']} ${items['image']} composer"
-  # local run="${items['run']} -v ${home}:/usr/local/lib/composer ${items['image']} composer"
-
+  local home="${COMPOSER_HOME:-${HOME}/.composer}"
   mkdir -p "${home}"
-  ${run} "$@"
+
+  local run="$(cli_command) composer $@"
+  # local run="$(cli_command -v ${home}:/usr/local/lib/composer) composer $@"
+  ${run}
 }
 
 function main() {
