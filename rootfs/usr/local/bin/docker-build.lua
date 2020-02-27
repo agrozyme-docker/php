@@ -22,7 +22,8 @@ local function main()
   core.link_log("/var/log/php7/access.log", "/var/log/php7/error.log")
   core.append_file(
     "/etc/php7/php-fpm.conf",
-    "include = /etc/php7/docker/*.conf \n include = /usr/local/etc/php7/*.conf \n"
+    "include=/etc/php7/docker/*.conf \n",
+    "include=/usr/local/etc/php7/*.conf \n"
   )
 
   core.run("%s/composer diagnose", bin)
