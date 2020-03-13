@@ -14,7 +14,7 @@ local function main()
   local bin = "/usr/local/bin"
 
   core.run(
-    "apk add --no-cache patch git $(apk search --no-cache -xq php7* | grep -Ev '(-apache2|-cgi|-dev|-doc|-pecl-gmagick)$')"
+    "apk add --no-cache patch git imagemagick $(apk search --no-cache -xq php7* | grep -Ev '(-apache2|-cgi|-dev|-doc|-pecl-gmagick)$')"
   )
 
   composer_setup(bin)
